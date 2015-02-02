@@ -8,13 +8,13 @@ var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 var mainBowerFiles = require('main-bower-files');
-var jsonminify = require('gulp-jsonminify');
+// var jsonminify = require('gulp-jsonminify');
  
-gulp.task('json-minify', function () {
-    return gulp.src(['data/db.json'])
-        .pipe(jsonminify())
-        .pipe(gulp.dest('www/data'));
-});
+// gulp.task('json-minify', function () {
+//     return gulp.src(['data/db.json'])
+//         .pipe(jsonminify())
+//         .pipe(gulp.dest('www/data'));
+// });
 
 var fileFilter = {
   css : function(file){
@@ -61,7 +61,7 @@ var paths = {
   js: ['./www/js/**/*.js']
 };
 
-gulp.task('default', ['json-minify','bower', 'js', 'watch']);
+gulp.task('default', ['bower', 'js', 'watch']);
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')

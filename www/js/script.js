@@ -40,7 +40,7 @@ angular.module('ortho')
 .factory('Words', ["$http", function($http){
 	var words;
 
-	$http.get("js/data/db.json").then(function(res){
+	$http.get("data/db.compressed.json").then(function(res){
 		words = res['data'];
 	});
 
