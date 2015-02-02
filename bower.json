@@ -1,0 +1,12 @@
+{
+  "name": "ortho",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#master"
+  },
+  "dependencies": {
+    "lodash": "~2.4.1",
+    "ionic": "driftyco/ionic-bower#master",
+    "angular-material": "master"
+  }
+}

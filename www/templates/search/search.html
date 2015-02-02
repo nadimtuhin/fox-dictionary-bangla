@@ -1,0 +1,33 @@
+<ion-view title="Fox Dictionary">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon-round"></button>
+  </ion-nav-buttons>
+  
+  <ion-content class="padding">
+    <form style="margin-bottom:10px" ng-submit="go(s)">
+        <div class="bar bar-header item-input-inset" style="padding:0">
+          <label class="item-input-wrapper">
+            <i class="icon ion-ios7-search placeholder-icon"></i>
+            <input type="search" id="search" placeholder="Search" ng-model="s" ng-change="search(s)">
+          </label>
+          <button class="button button-positive icon-left">
+             <i class="icon ion-ios7-search"></i> Search
+          </button>
+        </div>
+    </form>
+
+
+    <ion-list>
+      <ion-item ng-repeat="suggestion in suggestions" type="item-text-wrap" 
+        ui-sref="app.search-meaning({wordId:suggestion.en})">
+        <strong>{{suggestion.en}}</em></strong>
+        <small>
+          <em ng-show="suggestion.pron[0]">({{suggestion.pron[0]}}) -</em>
+          <em>{{suggestion.bn}}</em>
+        </small>
+      </ion-item>
+    </ion-list>
+
+
+  </ion-content>
+</ion-view>

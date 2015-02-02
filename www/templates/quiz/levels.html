@@ -1,0 +1,13 @@
+<ion-view title="Levels">
+	<ion-nav-buttons side="left">
+		<button menu-toggle="left" class="button button-icon icon ion-navicon-round"></button>
+	</ion-nav-buttons>
+
+  <ion-content>
+	<ion-list>
+	  <ion-item ng-repeat="level in levels" ui-sref="app.quiz-milestones({id:level})">
+	    level {{level}}
+	  </ion-item>
+	</ion-list>
+  </ion-content>
+</ion-view>

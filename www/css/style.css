@@ -1,0 +1,32 @@
+/* Empty. Add your own CSS if you like */
+
+/*dashboard input looks little awkward to increasing height*/
+.bar.item-input-inset .item-input-wrapper input {
+    height: 35px;
+}
+.small-button-bar > .button:before, .button-bar > .button .icon:before {
+    line-height: 25px;
+}
+.tabs-item-hide{
+	display: none;
+}
+
+.alphabet{
+    width: 18%;
+    margin: 1%;
+}
+
+.word-meaning.card{
+	margin-top: 0;
+}
+.words-list.list a {
+	margin: 5px 1%;
+	width: 47%;
+}
+
+.word-en, .word-bn{
+    text-align: center;
+}
+.word-en strong{
+    text-transform: capitalize;
+}
