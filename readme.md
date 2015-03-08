@@ -1,5 +1,11 @@
 ## Fox Dictionary: FirefoxOS/Android/iOS GRE Dictionary
 
+Have not tested with android/ios, because I have none. I would appreciate if you taste and report bugs on it.
+
+## Screenshots
+![Alt text](/screenshot1?raw=true)
+![Alt text](/screenshot2?raw=true)
+
 
 ### Start Hacking (*nix workflow)
 

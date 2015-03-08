@@ -3,7 +3,7 @@
     <feature name="Device">
         <param name="firefoxos-package" value="Device" />
     </feature>
-    <name>ortho</name>
+    <name>Fox Dictionary</name>
     <description>
         An Ionic Framework and Cordova project.
     </description>

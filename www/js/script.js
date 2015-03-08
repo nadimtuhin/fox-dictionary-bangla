@@ -8,7 +8,7 @@ function gs(name) {
 // the 2nd parameter is an array of 'requires'
 // 'ortho.services' is found in services.js
 // 'ortho.controllers' is found in controllers.js
-angular.module('ortho', ['ionic', 'ngMaterial'])
+angular.module('ortho', ['ionic', 'ngMaterial', 'ngSanitize'])
 .directive('keyboardHandler', function ($window) {
     return {
         restrict: 'A',
@@ -98,44 +98,85 @@ angular.module('ortho')
 }]);
 angular.module('ortho')
 .controller('SearchCtrl', ["$scope", "Words", "$timeout", "$state",
-    function($scope, Words, $timeout, $state) {
-	$scope.suggestions = [];
+	function($scope, Words, $timeout, $state) {
+    	$scope.suggestions = [];
+        $scope.wordsPerPage = 10;
+        $scope.allSuggestions = [];
+        $scope.medium = {
+            s: ""
+        }
 
-	$scope.go = function(word){
-        $scope.word = Words.getByName(word);
-        if (!$scope.word)return;
+        $scope.go = function(word){
+            $scope.word = Words.getByName(word);
+            if (!$scope.word) return;
 
-        $state.go('app.search-meaning', {wordId: $scope.word.id});
-	};
-    
-    $scope.search = function(search){
-    	if(!search){
-			$scope.suggestions = [];
-			return;
-    	}
-        $scope.suggestions = getSuggestions(search).splice(0,20); //take 20
-    };
+            // $scope.reset();
+            $state.go('app.search-meaning', {wordId: $scope.word.en});
+        };
 
-    var getWordMatches = function(search){
-    	return _.filter(Words.all(), function(word){
-		   return -1 !== word.en.indexOf(search);
-		});
-    };
+        $scope.search = function(search){
+            //TODO: this is a hack remove this
+            $scope.medium.s = search;
 
-    var getSuggestions = function(search){
-    	var suggestions = getWordMatches(search);
+            if(!search){
+                $scope.suggestions = [];
+                return;
+            }
+            $scope.searchPage = 0;
 
-    	var startMatches = _.filter(suggestions, function(word){
-    		return 0 === word.en.indexOf(search);
+            $scope.allSuggestions = getSuggestions(search);
+			$scope.suggestions = $scope.allSuggestions.splice($scope.searchPage, $scope.wordsPerPage); 
+		};
+
+		var getWordMatches = function(search){
+			return _.filter(Words.all(), function(word){
+                return -1 !== word.en.indexOf(search);
+    		});
+		};
+
+		var getSuggestions = function(search){
+			var suggestions = getWordMatches(search);
+
+			var startMatches = _.filter(suggestions, function(word){
+				return 0 === word.en.indexOf(search);
+			});
+
+			var middleMatches = _.filter(suggestions, function(word){
+				return 0 !== word.en.indexOf(search);
+			});
+
+			return startMatches.concat(middleMatches);
+		};
+
+        $scope.reset = function(){
+            $scope.medium.s = '';  //TODO: this is not working
+            $scope.suggestions = [];
+            $scope.allSuggestions = [];
+
+            console.log('reset complete');
+        }
+
+    	$scope.loadMore = function() {
+            $scope.searchPage +=  $scope.wordsPerPage;
+            
+            var suggestions = $scope.allSuggestions.splice($scope.searchPage, $scope.wordsPerPage); 
+            $scope.suggestions = $scope.suggestions.concat(suggestions);
+			
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+    	};
+
+        $scope.moreDataCanBeLoaded = function(){
+            var canMoreDataBeloaded = $scope.allSuggestions.length > $scope.searchPage;
+
+            console.log('can more data be loaded? ' + canMoreDataBeloaded);
+            return canMoreDataBeloaded;
+        }
+
+    	$scope.$on('$stateChangeSuccess', function() {
+    		$scope.loadMore();
     	});
-
-    	var middleMatches = _.filter(suggestions, function(word){
-    		return 0 !== word.en.indexOf(search);
-    	});
-
-    	return startMatches.concat(middleMatches);
-    };
 }]);
+
 angular.module('ortho')
 .controller('WordMeaningCtrl', ["$scope", "$stateParams", "Words", "$timeout", "$ionicNavBarDelegate",
     function($scope, $stateParams, Words, $timeout, $ionicNavBarDelegate) {

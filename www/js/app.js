@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'ortho.services' is found in services.js
 // 'ortho.controllers' is found in controllers.js
-angular.module('ortho', ['ionic', 'ngMaterial'])
+angular.module('ortho', ['ionic', 'ngMaterial', 'ngSanitize'])
 .directive('keyboardHandler', function ($window) {
     return {
         restrict: 'A',

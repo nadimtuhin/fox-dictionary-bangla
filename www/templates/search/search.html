@@ -2,13 +2,17 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon-round"></button>
   </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-refresh" ng-click="reset()"></button>
+  </ion-nav-buttons>
   
   <ion-content class="padding">
-    <form style="margin-bottom:10px" ng-submit="go(s)">
+    <form style="margin-bottom:10px" ng-submit="go(medium.s)">
         <div class="bar bar-header item-input-inset" style="padding:0">
           <label class="item-input-wrapper">
             <i class="icon ion-ios7-search placeholder-icon"></i>
-            <input type="search" id="search" placeholder="Search" ng-model="s" ng-change="search(s)">
+            <input type="search" id="search" placeholder="Search"
+              ng-model="medium.s" ng-change="search(medium.s)" />
           </label>
           <button class="button button-positive icon-left">
              <i class="icon ion-ios7-search"></i> Search
@@ -18,8 +22,7 @@
 
 
     <ion-list>
-      <ion-item ng-repeat="suggestion in suggestions" type="item-text-wrap" 
-        ui-sref="app.search-meaning({wordId:suggestion.en})">
+      <ion-item ng-repeat="suggestion in suggestions" type="item-text-wrap" ng-click="go(suggestion.en)">
         <strong>{{suggestion.en}}</em></strong>
         <small>
           <em ng-show="suggestion.pron[0]">({{suggestion.pron[0]}}) -</em>
@@ -27,6 +30,9 @@
         </small>
       </ion-item>
     </ion-list>
+
+    <ion-infinite-scroll ng-if="moreDataCanBeLoaded()" on-infinite="loadMore()" distance="10%">
+    </ion-infinite-scroll>
 
 
   </ion-content>
