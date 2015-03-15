@@ -1,6 +1,6 @@
 ## Fox Dictionary: FirefoxOS/Android/iOS GRE Dictionary
 
-Have not tested with android/ios, because I have none. I would appreciate if you taste and report bugs on it.
+Tested on firefoxos. Have not tested with android/ios. I would appreciate if you taste and report bugs on it.
 
 ## Screenshots
 ![Alt text](/screenshot1.png?raw=true)
