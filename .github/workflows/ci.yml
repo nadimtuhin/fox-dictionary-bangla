@@ -21,7 +21,7 @@ jobs:
 
       - name: Install dependencies
         if: ${{ hashFiles('package.json') != '' }}
-        run: npm ci || npm install
+        run: npm ci --ignore-scripts || npm install --ignore-scripts
 
       - name: Run lint
         if: ${{ hashFiles('package.json') != '' }}
