@@ -11,7 +11,7 @@ angular.module('ortho')
 			return words;
 		},
 		getByName: function(word){
-			return _.findWhere(words, {en: word})
+			return _.findWhere(words, {en: word.trim().toLowerCase()})
 		}
 	};
 }]);
