@@ -35,10 +35,4 @@ jobs:
 
       - name: Run tests
         if: ${{ hashFiles('package.json') != '' }}
-        run: |
-          if npm test --if-present 2>/dev/null; then
-            echo "Tests passed"
-          else
-            echo "No test script or tests skipped"
-          fi
-        continue-on-error: true
+        run: npm test
