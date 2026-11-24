@@ -33,7 +33,7 @@
 			<div ng-show="word.sents[0]">
 				<div ng-show="word.sents[0]" class="item item-divider"> Example Sentence </div>
 				<div ng-repeat="sent in word.sents track by $index" class="item item-text-wrap">
-					<p>{{sent}}</p>
+					<p ng-bind-html="sent"></p>
 				</div>
 			</div>
 		</div>
