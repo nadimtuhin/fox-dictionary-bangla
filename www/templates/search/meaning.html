@@ -16,24 +16,24 @@
 			<!-- <div class="item item-divider"> </div> -->
 			<!-- <div class="item item-text-wrap"> </div> -->
 			
-			<div ng-show="word.bn_syns">
+			<div ng-show="bnSyns">
 				<div class="item item-divider"> Bangla </div>
 				<div class="item item-text-wrap">
-						<p> {{ word.bn_syns }} </p>
+						<p> {{ bnSyns }} </p>
 				</div>
 			</div>
 
-			<div ng-show="word.en_syns">
+			<div ng-show="enSyns">
 				<div class="item item-divider"> English </div>
 				<div class="item item-text-wrap">
-						<p> {{ word.en_syns }} </p>
+						<p> {{ enSyns }} </p>
 				</div>
 			</div>
 			
 			<div ng-show="word.sents[0]">
 				<div ng-show="word.sents[0]" class="item item-divider"> Example Sentence </div>
 				<div ng-repeat="sent in word.sents track by $index" class="item item-text-wrap">
-					<p>{{sent}}</p>
+					<p ng-bind-html="sent"></p>
 				</div>
 			</div>
 		</div>

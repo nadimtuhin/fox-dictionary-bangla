@@ -49,7 +49,7 @@ angular.module('ortho')
 			return words;
 		},
 		getByName: function(word){
-			return _.findWhere(words, {en: word})
+			return _.findWhere(words, {en: word.trim().toLowerCase()})
 		}
 	};
 }]);
@@ -118,14 +118,16 @@ angular.module('ortho')
             //TODO: this is a hack remove this
             $scope.medium.s = search;
 
-            if(!search){
+            var query = (search || "").trim().toLowerCase();
+            if(!query){
                 $scope.suggestions = [];
+                $scope.allSuggestions = [];
                 return;
             }
             $scope.searchPage = 0;
 
-            $scope.allSuggestions = getSuggestions(search);
-			$scope.suggestions = $scope.allSuggestions.splice($scope.searchPage, $scope.wordsPerPage); 
+            $scope.allSuggestions = getSuggestions(query);
+			$scope.suggestions = $scope.allSuggestions.slice(0, $scope.wordsPerPage);
 		};
 
 		var getWordMatches = function(search){
@@ -159,7 +161,7 @@ angular.module('ortho')
     	$scope.loadMore = function() {
             $scope.searchPage +=  $scope.wordsPerPage;
             
-            var suggestions = $scope.allSuggestions.splice($scope.searchPage, $scope.wordsPerPage); 
+            var suggestions = $scope.allSuggestions.slice($scope.searchPage, $scope.searchPage + $scope.wordsPerPage);
             $scope.suggestions = $scope.suggestions.concat(suggestions);
 			
             $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -186,8 +188,8 @@ angular.module('ortho')
 
         // $timeout(function(){
             $scope.word = Words.getByName($stateParams.wordId);
-            $scope.word.bn_syns = $scope.word.bn_syns.join(", ");
-            $scope.word.en_syns = $scope.word.en_syns.join(", ");
+            $scope.bnSyns = $scope.word.bn_syns.join(", ");
+            $scope.enSyns = $scope.word.en_syns.join(", ");
         // }, 900);
 }]);
 angular.module('ortho')

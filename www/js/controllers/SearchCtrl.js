@@ -20,14 +20,16 @@ angular.module('ortho')
             //TODO: this is a hack remove this
             $scope.medium.s = search;
 
-            if(!search){
+            var query = (search || "").trim().toLowerCase();
+            if(!query){
                 $scope.suggestions = [];
+                $scope.allSuggestions = [];
                 return;
             }
             $scope.searchPage = 0;
 
-            $scope.allSuggestions = getSuggestions(search);
-			$scope.suggestions = $scope.allSuggestions.splice($scope.searchPage, $scope.wordsPerPage); 
+            $scope.allSuggestions = getSuggestions(query);
+			$scope.suggestions = $scope.allSuggestions.slice(0, $scope.wordsPerPage);
 		};
 
 		var getWordMatches = function(search){
@@ -61,7 +63,7 @@ angular.module('ortho')
     	$scope.loadMore = function() {
             $scope.searchPage +=  $scope.wordsPerPage;
             
-            var suggestions = $scope.allSuggestions.splice($scope.searchPage, $scope.wordsPerPage); 
+            var suggestions = $scope.allSuggestions.slice($scope.searchPage, $scope.searchPage + $scope.wordsPerPage);
             $scope.suggestions = $scope.suggestions.concat(suggestions);
 			
             $scope.$broadcast('scroll.infiniteScrollComplete');
