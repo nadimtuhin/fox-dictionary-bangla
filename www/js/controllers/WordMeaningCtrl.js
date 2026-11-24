@@ -7,7 +7,7 @@ angular.module('ortho')
 
         // $timeout(function(){
             $scope.word = Words.getByName($stateParams.wordId);
-            $scope.word.bn_syns = $scope.word.bn_syns.join(", ");
-            $scope.word.en_syns = $scope.word.en_syns.join(", ");
+            $scope.bnSyns = $scope.word.bn_syns.join(", ");
+            $scope.enSyns = $scope.word.en_syns.join(", ");
         // }, 900);
 }]);
